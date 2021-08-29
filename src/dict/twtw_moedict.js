@@ -47,7 +47,7 @@ class twtw_moedict {
             return [];
         }
 
-        let entries = doc.querySelectorAll('#result>div>div') || [];
+        let entries = doc.querySelectorAll('#result>div>div:not(.xrefs)') || [];
         console.log("-----萌典 debug start");
 
         for (const entry of entries) {
