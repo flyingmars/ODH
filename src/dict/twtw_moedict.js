@@ -63,7 +63,7 @@ class twtw_moedict {
             
             console.log(expression);
             let reading = '';
-            let readings = entry.querySelectorAll('h1 rb');
+            let readings = entry.querySelectorAll('h1 rt');
             reading = T(readings[0]);
             /*   if (readings) {
                 let reading_uk = T(readings[0]);
