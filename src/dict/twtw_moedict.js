@@ -56,7 +56,6 @@ class twtw_moedict {
             
             let expression = '' ;
             let allWords = entry.querySelectorAll('h1 rb');
-            console.log(allWords);
             for(const innerWords of allWords){
                 expression += T(innerWords);
             }
@@ -70,13 +69,17 @@ class twtw_moedict {
                 let reading_us = T(readings[1]);
                 reading = (reading_uk || reading_us) ? `UK[${reading_uk}] US[${reading_us}] ` : '';
             } */
-            let pos = T(entry.querySelector('.posgram'));
+            let pos = T(entry.querySelector('hi>i>meta'));
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
-            audios[0] = entry.querySelector(".uk.dpron-i source");
-            audios[0] = audios[0] ? 'https://dictionary.cambridge.org' + audios[0].getAttribute('src') : '';
-            //audios[0] = audios[0].replace('https', 'http');
-            audios[1] = entry.querySelector(".us.dpron-i source");
-            audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
+            
+            /* audio */
+            let audioMeta = entry.querySelector("h1>i>meta");
+            audios[0] = audioMeta[1].getAttribute("content");
+            // audios[0] = entry.querySelector("h1>i>meta");
+            // audios[0] = audios[0] ? 'https://dictionary.cambridge.org' + audios[0].getAttribute('src') : '';
+            // audios[0] = audios[0].replace('https', 'http');
+            // audios[1] = entry.querySelector(".us.dpron-i source");
+            // audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
             let sensbodys = entry.querySelectorAll('.sense-body') || [];
