@@ -56,8 +56,8 @@ class twtw_moedict {
             
             let expression = '' ;
             let allWords = entry.querySelector('h1 rb')
-            for(var i=0;i<allWords.length;i++){
-                expression += T(allWords[i]);
+            for(const innerWords of allWords){
+                expression += T(innerWords);
             }
             
             console.log(expression);
