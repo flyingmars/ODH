@@ -63,12 +63,13 @@ class twtw_moedict {
             
             console.log(expression);
             let reading = '';
-            let readings = entry.querySelectorAll('.pron .ipa');
-            if (readings) {
+            let readings = entry.querySelectorAll('h1 rb');
+            readings = T(readings[0]);
+            /*   if (readings) {
                 let reading_uk = T(readings[0]);
                 let reading_us = T(readings[1]);
                 reading = (reading_uk || reading_us) ? `UK[${reading_uk}] US[${reading_us}] ` : '';
-            }
+            } */
             let pos = T(entry.querySelector('.posgram'));
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
             audios[0] = entry.querySelector(".uk.dpron-i source");
