@@ -73,7 +73,8 @@ class twtw_moedict {
             pos = pos ? `<span class='pos'>${pos}</span>` : '';
             
             /* audio */
-            let audioMeta = entry.querySelector("h1>i>meta");
+            let audioMeta = entry.querySelectorAll("h1>i>meta");
+            
             audios[0] = audioMeta[1].getAttribute("content");
             // audios[0] = entry.querySelector("h1>i>meta");
             // audios[0] = audios[0] ? 'https://dictionary.cambridge.org' + audios[0].getAttribute('src') : '';
