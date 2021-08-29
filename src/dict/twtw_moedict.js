@@ -47,13 +47,15 @@ class twtw_moedict {
             return [];
         }
 
-        let entries = doc.querySelectorAll('.icon-play .playAudio') || [];
-        console.log(entries);
+        let entries = doc.querySelectorAll('#result>div>div') || [];
+        console.log("-----萌典 debug start");
+
         for (const entry of entries) {
             let definitions = [];
             let audios = [];
-
-            let expression = T(entry.querySelector('.headword'));
+            
+            let expression = T(entry.querySelector('h1'));
+            console.log(expression);
             let reading = '';
             let readings = entry.querySelectorAll('.pron .ipa');
             if (readings) {
