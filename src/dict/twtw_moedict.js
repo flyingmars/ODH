@@ -54,7 +54,12 @@ class twtw_moedict {
             let definitions = [];
             let audios = [];
             
-            let expression = T(entry.querySelector('h1'));
+            let expression = '' ;
+            let allWords = entry.querySelector('h1 rb')
+            allWords.forEach(element => expression += T(element));
+            
+            
+            
             console.log(expression);
             let reading = '';
             let readings = entry.querySelectorAll('.pron .ipa');
