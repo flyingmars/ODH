@@ -55,7 +55,8 @@ class twtw_moedict {
             let audios = [];
             
             let expression = '' ;
-            let allWords = entry.querySelector('h1 rb')
+            let allWords = entry.querySelectorAll('h1 rb')
+            console.log(allWords);
             for(const innerWords of allWords){
                 expression += T(innerWords);
             }
