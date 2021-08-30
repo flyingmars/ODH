@@ -81,7 +81,7 @@ class twtw_moedict {
             // audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
-            let entryItem = entry.querySelectorAll('.entry>.entry-item') || [];
+            let entryItem = entry.querySelectorAll('.entry-item') || [];
             let definition = '';
             
             for (const ent of entryItem) {
