@@ -97,9 +97,10 @@ class twtw_moedict {
                     console.log(moeDefine);
                     let defExp = moeDefine.querySelectorAll('.def') ;
                     let eng_tran = T(defExp[0]);
+                    let tran = `<span class='tran'>${eng_tran}</span>`
+                    definition += tran ;
                     
                     let examples = moeDefine.querySelectorAll('.example') ;
-                    
                     if ( examples.length > 0 ){
                         definition += '<ul class="sents">';
                         for (const example of examples){
@@ -107,9 +108,9 @@ class twtw_moedict {
                             let exampleHref = example.querySelectorAll('a');
                             let exampleSentences = "";
                             for (const word of exampleHref ){
-                                let dirtyWord = word.getAttribute("href");
-                                dirtyWord = dirtyWord.slice(4);
-                                exampleSentences += dirtyWord ;
+                                //let dirtyWord = word.getAttribute("href");
+                                //dirtyWord = dirtyWord.slice(3);
+                                exampleSentences += T(word) ;
                             }
                             
                             // 截取白話字發音
