@@ -60,6 +60,12 @@ class twtw_moedict {
                 expression += T(innerWords);
             }
             
+            // 其它發音
+            let alternatives = entry.querySelectorAll('h1>small.alternative>.pinyin');
+            for(const innerWords of alternatives){
+                expression += ", " + T(innerWords);
+            }
+            
             console.log(expression);
             let reading = '';
             let readings = entry.querySelectorAll('h1 rt');
@@ -127,7 +133,7 @@ class twtw_moedict {
                             let exampleMandrin = example.querySelectorAll('.mandarin');
                             let exampleMandrinStr = T(exampleMandrin[0]);
                             
-                            definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${examplePronouciation}</span><span class='mdn_sent'>${exampleMandrinStr}</span></li>`;
+                            definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><br><span class='chn_sent'>${examplePronouciation}</span><br><span class='mdn_sent'>${exampleMandrinStr}</span></li>`;
                             
                         }
                         definition += '</ul>';
