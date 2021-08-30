@@ -69,8 +69,6 @@ class twtw_moedict {
                 let reading_us = T(readings[1]);
                 reading = (reading_uk || reading_us) ? `UK[${reading_uk}] US[${reading_us}] ` : '';
             } */
-            let pos = T(entry.querySelector('hi>i>meta'));
-            pos = pos ? `<span class='pos'>${pos}</span>` : '';
             
             /* audio */
             let audioMeta = entry.querySelectorAll("h1>i>meta");
@@ -83,9 +81,50 @@ class twtw_moedict {
             // audios[1] = audios[1] ? 'https://dictionary.cambridge.org' + audios[1].getAttribute('src') : '';
             //audios[1] = audios[1].replace('https', 'http');
 
-            let sensbodys = entry.querySelectorAll('.sense-body') || [];
-            for (const sensbody of sensbodys) {
-                let sensblocks = sensbody.childNodes || [];
+            let entryItem = entry.querySelectorAll('.entry>.entry-item') || [];
+            let definition = '';
+            
+            for (const ent of entryItem) {
+                // 同音不同詞性部份
+                let partOfSpeech = ent.querySelectorAll('.part-of-speech') ;
+                let pos = T(partOfSpeech[0]);
+                pos = pos ? `<span class='pos'>${pos}</span>` : '';
+                
+                let moeDefines = ent.querySelectorAll('.definition') ;
+                for (const moeDefine of moeDefines){
+                    let defExp = moeDefine.querySelectorAll('.def') ;
+                    let eng_tran = T(defExp[0]);
+                    
+                    let examples = moeDefine.querySelectorAll('.example') ;
+                    
+                    if ( examples.length > 0 ){
+                        definition += '<ul class="sents">';
+                        for (const example of examples){
+                            // 截取白話字句子
+                            let exampleHref = example.querySelectorAll('a');
+                            let exampleSentences = "";
+                            for (const word of exampleHref ){
+                                let dirtyWord = word.getAttribute("href");
+                                dirtyWord = dirtyWord.slice(4);
+                                exampleSentences += dirtyWord ;
+                            }
+                            
+                            // 截取白話字發音
+                            let exampleRts = example.querySelectorAll('rt');
+                            let examplePronouciation = "";
+                            for (const exampleRt of exampleRts ){
+                                let dirtyWord = T(exampleRt);
+                                examplePronouciation += dirtyWord + " " ;
+                            }                        
+                            
+                            definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${examplePronouciation}</span></li>`;
+                            
+                        }
+                        definition += '</ul>';
+                    }
+                    definition && definitions.push(definition);
+                }
+/*                 //let sensblocks = sensbody.childNodes || [];
                 for (const sensblock of sensblocks) {
                     let phrasehead = '';
                     let defblocks = [];
@@ -104,7 +143,11 @@ class twtw_moedict {
                         let eng_tran = T(defblock.querySelector('.ddef_h .def'));
                         let chn_tran = T(defblock.querySelector('.def-body .trans'));
                         if (!eng_tran) continue;
-                        let definition = '';
+                        
+                        
+                        
+                        
+                        
                         eng_tran = `<span class='eng_tran'>${eng_tran.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span>`;
                         chn_tran = `<span class='chn_tran'>${chn_tran}</span>`;
                         let tran = `<span class='tran'>${eng_tran}${chn_tran}</span>`;
@@ -124,7 +167,7 @@ class twtw_moedict {
                         }
                         definition && definitions.push(definition);
                     }
-                }
+                } */
             }
             let css = this.renderCSS();
             notes.push({
