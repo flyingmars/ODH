@@ -299,7 +299,7 @@ class twtw_moedict {
                 li.sent  {margin:0; padding:0;}
                 span.eng_sent {margin-right:5px;}
                 span.chn_sent {color:#0d47a1;}
-                span.mdn_sent {color:#bab8b8;}
+                span.mdn_sent {color:#7d7979;}
             </style>`;
         return css;
     }
