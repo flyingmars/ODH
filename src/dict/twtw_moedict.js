@@ -89,9 +89,12 @@ class twtw_moedict {
                 let partOfSpeech = ent.querySelectorAll('.part-of-speech') ;
                 let pos = T(partOfSpeech[0]);
                 pos = pos ? `<span class='pos'>${pos}</span>` : '';
+                definition += pos;
+                console.log(T(partOfSpeech[0]));
                 
                 let moeDefines = ent.querySelectorAll('.definition') ;
                 for (const moeDefine of moeDefines){
+                    console.log(moeDefine);
                     let defExp = moeDefine.querySelectorAll('.def') ;
                     let eng_tran = T(defExp[0]);
                     
