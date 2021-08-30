@@ -130,8 +130,8 @@ class twtw_moedict {
                         }
                         definition += '</ul>';
                     }
-                    definition && definitions.push(definition);
                 }
+                definition && definitions.push(definition);
 /*                 //let sensblocks = sensbody.childNodes || [];
                 for (const sensblock of sensblocks) {
                     let phrasehead = '';
