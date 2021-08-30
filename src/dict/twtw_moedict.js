@@ -67,7 +67,7 @@ class twtw_moedict {
             // 其它發音
             let alternatives = entry.querySelectorAll('h1>small.alternative>.pinyin');
             for(const innerWords of alternatives){
-                readings += ", " + T(innerWords);
+                reading += ", " + T(innerWords);
             }            
             /*   if (readings) {
                 let reading_uk = T(readings[0]);
