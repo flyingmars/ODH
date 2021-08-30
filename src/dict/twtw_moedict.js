@@ -105,7 +105,7 @@ class twtw_moedict {
                         definition += '<ul class="sents">';
                         for (const example of examples){
                             // 截取白話字句子
-                            let exampleHref = example.querySelectorAll('a');
+                            let exampleHref = example.querySelectorAll('hruby a');
                             let exampleSentences = "";
                             for (const word of exampleHref ){
                                 //let dirtyWord = word.getAttribute("href");
@@ -121,7 +121,11 @@ class twtw_moedict {
                                 examplePronouciation += dirtyWord + " " ;
                             }                        
                             
-                            definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${examplePronouciation}</span></li>`;
+                            // 截取華語解釋
+                            let exampleMandrin = example.querySelectorAll('mandarin');
+                            let exampleMandrinStr = T(exampleMandrin[0]);
+                            
+                            definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${examplePronouciation}</span><span class='mdn_sent'>${exampleMandrinStr}</span></li>`;
                             
                         }
                         definition += '</ul>';
@@ -295,6 +299,7 @@ class twtw_moedict {
                 li.sent  {margin:0; padding:0;}
                 span.eng_sent {margin-right:5px;}
                 span.chn_sent {color:#0d47a1;}
+                span.mdn_sent {color:#bab8b8;}
             </style>`;
         return css;
     }
