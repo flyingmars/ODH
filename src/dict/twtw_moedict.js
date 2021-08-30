@@ -88,7 +88,7 @@ class twtw_moedict {
                 // 同音不同詞性部份
                 let partOfSpeech = ent.querySelectorAll('.part-of-speech') ;
                 let pos = T(partOfSpeech[0]);
-                pos = pos ? `<span class='pos'>${pos}</span>` : '';
+                pos = pos ? `<span class='pos'>${pos}</span><br>` : '';
                 definition += pos;
                 console.log(T(partOfSpeech[0]));
                 
@@ -122,7 +122,7 @@ class twtw_moedict {
                             }                        
                             
                             // 截取華語解釋
-                            let exampleMandrin = example.querySelectorAll('mandarin');
+                            let exampleMandrin = example.querySelectorAll('.mandarin');
                             let exampleMandrinStr = T(exampleMandrin[0]);
                             
                             definition += `<li class='sent'><span class='eng_sent'>${exampleSentences.replace(RegExp(expression, 'gi'),`<b>${expression}</b>`)}</span><span class='chn_sent'>${examplePronouciation}</span><span class='mdn_sent'>${exampleMandrinStr}</span></li>`;
