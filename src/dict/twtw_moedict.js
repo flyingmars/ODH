@@ -82,9 +82,11 @@ class twtw_moedict {
             //audios[1] = audios[1].replace('https', 'http');
 
             let entryItem = entry.querySelectorAll('.entry-item') || [];
-            let definition = '';
+            
             
             for (const ent of entryItem) {
+                let definition = '';
+                
                 // 同音不同詞性部份
                 let partOfSpeech = ent.querySelectorAll('.part-of-speech') ;
                 let pos = T(partOfSpeech[0]);
@@ -131,7 +133,7 @@ class twtw_moedict {
                         definition += '</ul>';
                     }
                 }
-                //definition && definitions.push(definition);
+                definition && definitions.push(definition);
 /*                 //let sensblocks = sensbody.childNodes || [];
                 for (const sensblock of sensblocks) {
                     let phrasehead = '';
