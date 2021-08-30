@@ -59,17 +59,16 @@ class twtw_moedict {
             for(const innerWords of allWords){
                 expression += T(innerWords);
             }
+
+            let reading = '';
+            let readings = entry.querySelectorAll('h1 rt');
+            reading = T(readings[0]);
             
             // 其它發音
             let alternatives = entry.querySelectorAll('h1>small.alternative>.pinyin');
             for(const innerWords of alternatives){
-                expression += ", " + T(innerWords);
-            }
-            
-            console.log(expression);
-            let reading = '';
-            let readings = entry.querySelectorAll('h1 rt');
-            reading = T(readings[0]);
+                readings += ", " + T(innerWords);
+            }            
             /*   if (readings) {
                 let reading_uk = T(readings[0]);
                 let reading_us = T(readings[1]);
