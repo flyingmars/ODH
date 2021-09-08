@@ -230,16 +230,14 @@ class twtw_moedict {
             let decodedData = unicodeToChar(dataRoman);
             //console.log(decodedData);
             
-            let parsed = JSON.parse(decodedData);
-            console.log(parsed);
+            parsed = JSON.parse(decodedData);
             
-            let data = await api.fetch(url);
-            doc = parser.parseFromString(data, 'text/html');
+            //let data = await api.fetch(url);
+            //doc = parser.parseFromString(data, 'text/html');
         } catch (err) {
             return [];
         }
 
-        console.log(doc);
 
 
         
@@ -250,7 +248,18 @@ class twtw_moedict {
         let reading = (parsed["臺羅"] || parsed["白話字"]) ? `[臺羅]${parsed["臺羅"]} [白話字]${parsed["白話字"]}` : '';
         
         let audios = [];
-        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`;
+        
+        try {
+            let soundReqUrl =  `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`          
+          
+            let soundData = await api.fetch(soundReqUrl);
+            console.log(soundData);
+            audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`;
+        } catch (err) {
+            audios = [];
+        }        
+        
+        
         //audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
 
         // let definition = '<ul class="ec">';
