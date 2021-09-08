@@ -251,9 +251,9 @@ class twtw_moedict {
         let audios = [];
         
         try {
-            let soundReqUrl =  `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`          
+            // let soundReqUrl =  `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`          
           
-            let soundData = await api.fetch(soundReqUrl);
+            // let soundData = await api.fetch(soundReqUrl);
             audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`;
         } catch (err) {
             audios = [];
