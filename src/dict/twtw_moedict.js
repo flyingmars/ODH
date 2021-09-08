@@ -97,11 +97,11 @@ class twtw_moedict {
                 let pos = T(partOfSpeech[0]);
                 pos = pos ? `<span class='pos'>${pos}</span><br>` : '';
                 definition += pos;
-                console.log(T(partOfSpeech[0]));
+                //console.log(T(partOfSpeech[0]));
                 
                 let moeDefines = ent.querySelectorAll('.definition') ;
                 for (const moeDefine of moeDefines){
-                    console.log(moeDefine);
+                    //console.log(moeDefine);
                     let defExp = moeDefine.querySelectorAll('.def') ;
                     let eng_tran = T(defExp[0]);
                     let tran = `<span class='tran'>${eng_tran}</span>`
@@ -200,12 +200,17 @@ class twtw_moedict {
         if (!word) return [];
 
         let base = 'https://suisiann.ithuan.tw/講/';
+        
+        let romanBase = "https://hts.ithuan.tw/%E7%BE%85%E9%A6%AC%E5%AD%97%E8%BD%89%E6%8F%9B?%E6%9F%A5%E8%A9%A2%E8%AA%9E%E5%8F%A5="
+        let romanUrl = romanBase + encodeURIComponent(word)
+        
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
-            let data = await api.fetch(url);
+            let data = await api.fetch(romanUrl);
             let parser = new DOMParser();
-            doc = parser.parseFromString(data, 'text/html');
+            console.log(data);
+            //doc = parser.parseFromString(data, 'text/html');
         } catch (err) {
             return [];
         }
