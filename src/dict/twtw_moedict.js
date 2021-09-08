@@ -238,14 +238,15 @@ class twtw_moedict {
             return [];
         }
 
-
-
-        
         let notes = [];
 
         //get headword and phonetic
         let expression = word; //headword
-        let reading = (parsed["臺羅"] || parsed["白話字"]) ? `[臺羅]${parsed["臺羅"]} [白話字]${parsed["白話字"]}` : '';
+        
+        let reading = ""
+        if ( parsed["臺羅"] == word ) reading += "<span class='pos'>臺羅</span>";
+        if ( parsed["白話字"] == word ) reading += "<span class='pos'>白話字</span>";
+        let reading = `<br><span class='pos'>臺羅</span>${parsed["臺羅"]}<br><span class='pos'>白話字</span>${parsed["白話字"]}`;
         
         let audios = [];
         
@@ -253,7 +254,6 @@ class twtw_moedict {
             let soundReqUrl =  `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`          
           
             let soundData = await api.fetch(soundReqUrl);
-            console.log(soundData);
             audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`;
         } catch (err) {
             audios = [];
@@ -275,12 +275,13 @@ class twtw_moedict {
             // definition += `<li class="ec">${pos}<span class="ec_chn">${def}</span></li>`;
         // }
         // definition += '</ul>';
-        let css = `
-            <style>
-                span.pos  {text-transform:lowercase; font-size:0.9em; margin-right:5px; padding:2px 4px; color:white; background-color:#0d47a1; border-radius:3px;}
-                span.simple {background-color: #999!important}
-                ul.ec, li.ec {margin:0; padding:0;}
-            </style>`;
+        // let css = `
+            // <style>
+                // span.pos  {text-transform:lowercase; font-size:0.9em; margin-right:5px; padding:2px 4px; color:white; background-color:#0d47a1; border-radius:3px;}
+                // span.simple {background-color: #999!important}
+                // ul.ec, li.ec {margin:0; padding:0;}
+            // </style>`;
+        let css = this.renderCSS();
         notes.push({
             css,
             expression,
