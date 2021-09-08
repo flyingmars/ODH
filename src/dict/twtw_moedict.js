@@ -20,7 +20,7 @@ class twtw_moedict {
 
     async findTerm(word) {
         this.word = word;
-        let promises = [this.findMoedict(word)];//, this.findYoudao(word)];
+        let promises = [this.findMoedict(word), this.findSuisiann(word)];
         let results = await Promise.all(promises);
         return [].concat(...results).filter(x => x);
     }
@@ -48,7 +48,7 @@ class twtw_moedict {
         }
 
         let entries = doc.querySelectorAll('#result>div>div:not(.xrefs)') || [];
-        console.log("-----萌典 debug start");
+        //console.log("-----萌典 debug start");
 
         for (const entry of entries) {
             let definitions = [];
@@ -196,6 +196,68 @@ class twtw_moedict {
         return notes;
     }
 
+    async findSuisiann(word) {
+        if (!word) return [];
+
+        let base = 'https://suisiann.ithuan.tw/%E8%AC%9B/';
+        let url = base + encodeURIComponent(word);
+        let doc = '';
+        try {
+            let data = await api.fetch(url);
+            let parser = new DOMParser();
+            doc = parser.parseFromString(data, 'text/html');
+        } catch (err) {
+            return [];
+        }
+
+
+        function T(node) {
+            if (!node)
+                return '';
+            else
+                return node.innerText.trim();
+        }
+
+        let notes = [];
+
+        let readgins = doc.querySelectorAll('rt');
+
+        //get headword and phonetic
+        let expression = T(doc.querySelector('textarea')); //headword
+        let reading = T(doc.querySelector('rt'));
+        
+        let audios = [];
+        audios[0] = doc.querySelector('.ui.compact.icon.massive.button').href;
+        //audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
+
+        // let definition = '<ul class="ec">';
+        // for (const defNode of defNodes){
+            // let pos = '';
+            // let def = T(defNode);
+            // let match = /(^.+?\.)\s/gi.exec(def);
+            // if (match && match.length > 1){
+                // pos = match[1];
+                // def = def.replace(pos, '');
+            // }
+            // pos = pos ? `<span class="pos simple">${pos}</span>`:'';
+            // definition += `<li class="ec">${pos}<span class="ec_chn">${def}</span></li>`;
+        // }
+        // definition += '</ul>';
+        let css = `
+            <style>
+                span.pos  {text-transform:lowercase; font-size:0.9em; margin-right:5px; padding:2px 4px; color:white; background-color:#0d47a1; border-radius:3px;}
+                span.simple {background-color: #999!important}
+                ul.ec, li.ec {margin:0; padding:0;}
+            </style>`;
+        notes.push({
+            css,
+            expression,
+            reading,
+            definitions: [definition],
+            audios
+        });
+        return notes;
+    }
     /* async findYoudao(word) {
         if (!word) return [];
 
