@@ -253,7 +253,7 @@ class twtw_moedict {
             css,
             expression,
             reading,
-            definitions: [definition],
+            definitions: [''],//definition],
             audios
         });
         return notes;
