@@ -243,7 +243,7 @@ class twtw_moedict {
         //get headword and phonetic
         let expression = word; //headword
         
-        let reading = ""
+        let reading = "" ;
         if ( parsed["臺羅"] == word ) reading += "<span class='pos'>臺羅</span>";
         if ( parsed["白話字"] == word ) reading += "<span class='pos'>白話字</span>";
         let reading = `<br><span class='pos'>臺羅</span>${parsed["臺羅"]}<br><span class='pos'>白話字</span>${parsed["白話字"]}`;
