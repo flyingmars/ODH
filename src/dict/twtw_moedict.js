@@ -227,7 +227,7 @@ class twtw_moedict {
         let reading = T(doc.querySelector('rt'));
         
         let audios = [];
-        audios[0] = doc.querySelector('a.ui.compact.icon.massive.button').href;
+        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(reading)}`;
         //audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
 
         // let definition = '<ul class="ec">';
