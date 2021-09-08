@@ -198,6 +198,20 @@ class twtw_moedict {
 
     async findSuisiann(word) {
         if (!word) return [];
+        
+        function T(node) {
+            if (!node)
+                return '';
+            else
+                return node.innerText.trim();
+        }
+
+        function unicodeToChar(text) {
+          return text.replace(/\\u[\dA-F]{4}/gi, 
+          function (match) {
+               return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+          });
+        }        
 
         let base = 'https://suisiann.ithuan.tw/講/';
         
@@ -209,30 +223,27 @@ class twtw_moedict {
         try {
             let data = await api.fetch(romanUrl);
             let parser = new DOMParser();
-            console.log(data);
+            let decodedData = unicodeToChar(data);
+            console.log(decodedData);
+            
+            let parsed = JSON.parse(decodedData);
+            console.log(parsed);
             //doc = parser.parseFromString(data, 'text/html');
         } catch (err) {
             return [];
         }
 
 
-        function T(node) {
-            if (!node)
-                return '';
-            else
-                return node.innerText.trim();
-        }
 
+        
         let notes = [];
 
-        let readgins = doc.querySelectorAll('rt');
-
         //get headword and phonetic
-        let expression = T(doc.querySelector('textarea')); //headword
-        let reading = T(doc.querySelector('rt'));
+        let expression = word; //headword
+        let reading = T(parsed["臺羅"]);
         
         let audios = [];
-        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(reading)}`;
+        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(expression)}`;
         //audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
 
         // let definition = '<ul class="ec">';
