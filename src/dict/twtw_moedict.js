@@ -213,26 +213,33 @@ class twtw_moedict {
           });
         }        
 
-        let base = 'https://suisiann.ithuan.tw/講/';
+        
         
         let romanBase = "https://hts.ithuan.tw/%E7%BE%85%E9%A6%AC%E5%AD%97%E8%BD%89%E6%8F%9B?%E6%9F%A5%E8%A9%A2%E8%AA%9E%E5%8F%A5="
         let romanUrl = romanBase + encodeURIComponent(word)
         
+        let base = 'https://suisiann.ithuan.tw/%E8%AC%9B/';
         let url = base + encodeURIComponent(word);
+        
         let doc = '';
+        let parsed = ''
+   
         try {
-            let data = await api.fetch(romanUrl);
+            let dataRoman = await api.fetch(romanUrl);
             let parser = new DOMParser();
-            let decodedData = unicodeToChar(data);
-            console.log(decodedData);
+            let decodedData = unicodeToChar(dataRoman);
+            //console.log(decodedData);
             
             let parsed = JSON.parse(decodedData);
             console.log(parsed);
-            //doc = parser.parseFromString(data, 'text/html');
+            
+            let data = await api.fetch(url);
+            doc = parser.parseFromString(data, 'text/html');
         } catch (err) {
             return [];
         }
 
+        console.log(doc);
 
 
         
@@ -240,10 +247,10 @@ class twtw_moedict {
 
         //get headword and phonetic
         let expression = word; //headword
-        let reading = T(parsed["臺羅"]);
+        let reading = (parsed["臺羅"] || parsed["白話字"]) ? `[臺羅]${parsed["臺羅"]} [白話字]${parsed["白話字"]}` : '';
         
         let audios = [];
-        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(expression)}`;
+        audios[0] = `https://hapsing.ithuan.tw/bangtsam?taibun=${encodeURIComponent(parsed["臺羅"])}`;
         //audios[1] = `http://dict.youdao.com/dictvoice?audio=${encodeURIComponent(expression)}&type=2`;
 
         // let definition = '<ul class="ec">';
