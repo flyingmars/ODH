@@ -199,7 +199,7 @@ class twtw_moedict {
     async findSuisiann(word) {
         if (!word) return [];
 
-        let base = 'https://suisiann.ithuan.tw/%E8%AC%9B/';
+        let base = 'https://suisiann.ithuan.tw/講/';
         let url = base + encodeURIComponent(word);
         let doc = '';
         try {
