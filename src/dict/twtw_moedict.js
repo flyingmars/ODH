@@ -215,14 +215,14 @@ class twtw_moedict {
 
         
         
-        let romanBase = "https://hts.ithuan.tw/%E7%BE%85%E9%A6%AC%E5%AD%97%E8%BD%89%E6%8F%9B?%E6%9F%A5%E8%A9%A2%E8%AA%9E%E5%8F%A5="
-        let romanUrl = romanBase + encodeURIComponent(word)
+        let romanBase = "https://hts.ithuan.tw/%E7%BE%85%E9%A6%AC%E5%AD%97%E8%BD%89%E6%8F%9B?%E6%9F%A5%E8%A9%A2%E8%AA%9E%E5%8F%A5=";
+        let romanUrl = romanBase + encodeURIComponent(word);
         
         let base = 'https://suisiann.ithuan.tw/%E8%AC%9B/';
         let url = base + encodeURIComponent(word);
         
         let doc = '';
-        let parsed = ''
+        let parsed = '';
    
         try {
             let dataRoman = await api.fetch(romanUrl);
@@ -244,8 +244,8 @@ class twtw_moedict {
         let expression = word; //headword
         
         let reading = "" ;
-        if ( parsed["臺羅"] == word ) reading += `<span class='pos'>臺羅</span>`;
-        if ( parsed["白話字"] == word ) reading += `<span class='pos'>白話字</span>`;
+        if ( parsed["臺羅"] == word ){ reading += `<span class='pos'>臺羅</span>`;}
+        if ( parsed["白話字"] == word ){ reading += `<span class='pos'>白話字</span>`;}
         reading += `<br><span class='pos'>臺羅</span>${parsed["臺羅"]}<br><span class='pos'>白話字</span>${parsed["白話字"]}`;
         
         let audios = [];
